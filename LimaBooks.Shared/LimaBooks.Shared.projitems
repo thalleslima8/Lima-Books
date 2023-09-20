@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>75cc6db5-afc9-4bbd-b735-59d0dc1157d2</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>LimaBooks.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Dtos\BookDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dtos\DtoBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\ReadingStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Filters\BookFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Filters\FilterBase.cs" />
+  </ItemGroup>
+</Project>
