@@ -6,6 +6,7 @@ using LimaBooks.Repository.Interfaces;
 using LimaBooks.Repository.Repositories;
 using LimaBooks.Service.BookService;
 using LimaBooks.Service.MapperService;
+using LimaBooks.Service.SeedService;
 
 Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
@@ -25,6 +26,7 @@ builder.Services.AddLogging(loggingBuilder =>
 
 // Add services to the container.
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<ISeedService, SeedService>();
 
 
 //Repositories
@@ -35,6 +37,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MapperService));
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("*").AllowAnyHeader()
+                                                  .AllowAnyMethod(); 
+                      });
+});
 
 var app = builder.Build();
 
@@ -48,7 +62,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseCors(MyAllowSpecificOrigins);
+
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
@@ -58,8 +77,15 @@ app.Run();
 
 static void ConfigDataBase(WebApplicationBuilder builder)
 {
+    var settings = builder.Configuration.GetSection("DBSettings").Get<DBSettings>();
+
+    if(settings is null) 
+        throw new Exception($"Can't find DBSettings!");
+
+    var connectionString = $"server={settings.Server};port={settings.Port};database={settings.Database};user={settings.User};password={settings.Password};sslmode={settings.SslMode}";
+
     builder.Services.AddDbContext<MySqlContext>(options =>
-        options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+        options.UseMySql(connectionString,
         new MySqlServerVersion(new Version(8, 0, 33)))
         .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information));
 }

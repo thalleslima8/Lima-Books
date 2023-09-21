@@ -8,6 +8,6 @@ namespace LimaBooks.Service.SeedService
 {
     public interface ISeedService
     {
-        Task Seed();
+        Task<object> Seed();
     }
 }

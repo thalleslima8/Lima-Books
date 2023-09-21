@@ -142,6 +142,8 @@ namespace LimaBooks.Repository.Base
                     await DbSet.AddAsync(entity);
                 }
 
+                await SaveChanges();
+
                 return entities;
             }
             catch (Exception e)

@@ -3,6 +3,7 @@ using LimaBooks.Domain.Base;
 using LimaBooks.Shared.Dtos;
 using LimaBooks.Shared.Filters;
 using Serilog;
+using System.Linq;
 
 namespace LimaBooks.Service.Base
 {
@@ -19,8 +20,8 @@ namespace LimaBooks.Service.Base
             _repository = repository;
         }
 
-        public abstract Task<D> ToDto(T entity);
-        public abstract Task<T> ToModel(D dto);
+        public abstract D ToDto(T entity);
+        public abstract T ToModel(D dto);
 
         public virtual async Task Delete(int? id)
         {
@@ -47,7 +48,7 @@ namespace LimaBooks.Service.Base
 
             foreach (var model in models)
             {
-                D? itemDto = model is null ? default(D) : await ToDto(model);
+                D? itemDto = model is null ? default(D) : ToDto(model);
 
                 if (itemDto is not null)
                     result.Add(itemDto);
@@ -68,14 +69,14 @@ namespace LimaBooks.Service.Base
                 if (dto is null)
                     throw new ArgumentNullException(nameof(dto));
 
-                var model = await ToModel(dto);
+                var model = ToModel(dto);
 
                 if (model.Id.HasValue)
                     return await Update(dto);
 
                 var result = await _repository.SaveAsync(model);
 
-                return await ToDto(result);
+                return ToDto(result);
             }
             catch (Exception e)
             {
@@ -86,14 +87,33 @@ namespace LimaBooks.Service.Base
 
         public virtual async Task<D> Update(D dto)
         {
-            var model = await ToModel(dto);
+            var model = ToModel(dto);
 
             if (!model.Id.HasValue)
-                return await ToDto(await _repository.SaveAsync(model));
+                return ToDto(await _repository.SaveAsync(model));
 
             await _repository.SaveChanges();
 
-            return await ToDto(model);
+            return ToDto(model);
+        }
+
+        public async Task<IEnumerable<D>> SaveBatch(IEnumerable<D> dtos)
+        {
+            try
+            {
+                var models = dtos.Select(dto => ToModel(dto)).ToList();
+
+                var savedModels = await _repository.SaveBatchAsync(models);
+
+                dtos = savedModels.Select(model => ToDto(model)).ToList();
+
+                return dtos;
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error($"Error on save batch. {e.Message}", e);
+                throw;
+            }
         }
     }
 }

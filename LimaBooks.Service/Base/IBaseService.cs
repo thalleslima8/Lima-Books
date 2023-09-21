@@ -10,6 +10,7 @@ namespace LimaBooks.Service.Base
         where F : FilterBase
     {
         Task<D> Save(D dto);
+        Task<IEnumerable<D>> SaveBatch(IEnumerable<D> dtos);
         Task Delete(int? id);
         Task<D> Update(D dto);
         Task<IEnumerable<D>> Get(F filter);

@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimaBooks.Api", "LimaBooks.Api\LimaBooks.Api.csproj", "{632FB511-0E71-4AC2-9E21-8B474B2052DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimaBooks.Api", "LimaBooks.Api\LimaBooks.Api.csproj", "{632FB511-0E71-4AC2-9E21-8B474B2052DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimaBooks.Domain", "LimaBooks.Domain\LimaBooks.Domain.csproj", "{82CE1E6E-F0B1-47F0-BEFD-52C83526E7EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimaBooks.Domain", "LimaBooks.Domain\LimaBooks.Domain.csproj", "{82CE1E6E-F0B1-47F0-BEFD-52C83526E7EC}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "LimaBooks.Shared", "LimaBooks.Shared\LimaBooks.Shared.shproj", "{75CC6DB5-AFC9-4BBD-B735-59D0DC1157D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimaBooks.Service", "LimaBooks.Service\LimaBooks.Service.csproj", "{23E3A007-3472-4409-A626-200F47FB038B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimaBooks.Service", "LimaBooks.Service\LimaBooks.Service.csproj", "{23E3A007-3472-4409-A626-200F47FB038B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimaBooks.Repository", "LimaBooks.Repository\LimaBooks.Repository.csproj", "{EA1AD5F2-E01F-4726-96B0-C9DFC5FD5FFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimaBooks.Repository", "LimaBooks.Repository\LimaBooks.Repository.csproj", "{EA1AD5F2-E01F-4726-96B0-C9DFC5FD5FFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Devops", "Devops", "{827EA68C-5825-41E3-994A-E5DC11EB7E1B}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

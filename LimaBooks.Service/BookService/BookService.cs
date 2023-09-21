@@ -23,13 +23,13 @@ namespace LimaBooks.Service.BookService
             return any != null;
         }
 
-        public override async Task<BookDto> ToDto(Book entity)
+        public override BookDto ToDto(Book entity)
         {
             var dto = _mapper.Map<BookDto>(entity);
             return dto;
         }
 
-        public override async Task<Book> ToModel(BookDto dto)
+        public override Book ToModel(BookDto dto)
         {
             var book = _mapper.Map<Book>(dto);
             return book;
