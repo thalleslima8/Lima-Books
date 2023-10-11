@@ -31,14 +31,18 @@ namespace LimaBooks.Service.Base
             await _repository.DeleteById(id.Value);
         }
 
-        public virtual async Task<IEnumerable<D>> Get(F filter)
+        public virtual async Task<IEnumerable<D>> Get(IQueryable<T> query, F filter)
         {
-            var query = await GetQuery();
-
-            if (filter?.Id != null)
+            if (filter.Id != null)
                 query = query.Where(x => x.Id == filter.Id);
 
-            query = query.Where(x => x.IsActive);
+            if (filter.CreatedAt != null)
+                query = query.Where(x => x.CreatedAt.Date == filter.CreatedAt.Value.Date);
+
+            if (filter.UpdatedAt != null)
+                query = query.Where(x => x.UpdatedAt.Date == filter.UpdatedAt.Value.Date);
+
+            query = query.Where(x => filter.IsActive == x.IsActive);
 
             query = query.Skip(filter.Page.Value * filter.Size.Value).Take(filter.Size.Value);
 
@@ -115,5 +119,7 @@ namespace LimaBooks.Service.Base
                 throw;
             }
         }
+
+        public abstract Task<IEnumerable<D>> GetByFilter(F filter);
     }
 }

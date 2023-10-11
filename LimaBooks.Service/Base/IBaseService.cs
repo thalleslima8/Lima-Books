@@ -13,7 +13,8 @@ namespace LimaBooks.Service.Base
         Task<IEnumerable<D>> SaveBatch(IEnumerable<D> dtos);
         Task Delete(int? id);
         Task<D> Update(D dto);
-        Task<IEnumerable<D>> Get(F filter);
+        Task<IEnumerable<D>> Get(IQueryable<T> query, F filter);
         Task<IQueryable<T>> GetQuery();
+        Task<IEnumerable<D>> GetByFilter(F filter);
     }
 }

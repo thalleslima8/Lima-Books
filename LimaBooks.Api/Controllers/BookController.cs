@@ -22,7 +22,7 @@ namespace LimaBooks.Api.Controllers
         {
             try
             {
-                var result = await _bookService.Get(new BookFilter());
+                var result = await _bookService.GetByFilter(new BookFilter());
                 return Ok(result);
             }
             catch (Exception exception)
@@ -36,7 +36,7 @@ namespace LimaBooks.Api.Controllers
         {
             try
             {
-                var result = await _bookService.Get(filter);
+                var result = await _bookService.GetByFilter(filter);
                 return Ok(result);
             }
             catch (Exception exception)

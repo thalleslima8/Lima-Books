@@ -6,7 +6,7 @@ using LimaBooks.Shared.Filters;
 namespace LimaBooks.Service.BookService
 {
     public interface IBookService : IBaseService<Book, BookDto, BookFilter>
-    {
+    {        
         Task<bool> Any();
     }
 }

@@ -23,6 +23,40 @@ namespace LimaBooks.Service.BookService
             return any != null;
         }
 
+        public override async Task<IEnumerable<BookDto>> GetByFilter(BookFilter filter)
+        {
+            var query = await GetQuery();
+
+            if (filter == null)
+                throw new Exception("Oops! Filter can not be null!");
+
+            if(!string.IsNullOrEmpty(filter.Author))
+                query = query.Where(x => x.Author.Contains(filter.Author));
+
+            if(!string.IsNullOrEmpty(filter.Description))
+                query = query.Where(x => x.Description.Contains(filter.Description));
+
+            if(!string.IsNullOrEmpty(filter.Title))
+                query = query.Where(x => x.Title.Contains(filter.Title));
+
+            if(!string.IsNullOrEmpty(filter.Publisher))
+                query = query.Where(x => x.Publisher.Contains(filter.Publisher));
+
+            if (!string.IsNullOrEmpty(filter.ISBN))
+                query = query.Where(x => x.ISBN.Contains(filter.ISBN));
+
+            if (!string.IsNullOrEmpty(filter.Genre))
+                query = query.Where(x => x.Genre.Contains(filter.Genre));
+
+            if (!string.IsNullOrEmpty(filter.Language))
+                query = query.Where(x => x.Language.Contains(filter.Language));
+
+            if (filter.PublishedDate != null)
+                query = query.Where(x => x.PublishedDate.Date == filter.PublishedDate.Value.Date);
+
+            return await Get(query, filter);
+        }
+
         public override BookDto ToDto(Book entity)
         {
             var dto = _mapper.Map<BookDto>(entity);

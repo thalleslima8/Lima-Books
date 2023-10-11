@@ -1,4 +1,6 @@
-﻿namespace LimaBooks.Shared.Dtos
+﻿using LimaBooks.Shared.Enums;
+
+namespace LimaBooks.Shared.Dtos
 {
     public class BookDto : DtoBase
     {
@@ -13,5 +15,6 @@
         public string Language { get; set; }
         public bool Availability { get; set; }
         public string CoverImageURL { get; set; }
+        public ReadingStatus ReadingStatus { get; set; }
     }
 }

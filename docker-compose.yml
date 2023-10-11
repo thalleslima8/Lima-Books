@@ -20,6 +20,7 @@ services:
       MYSQL_DATABASE: lima-books
   
   api:
+    container_name: lima-books
     build: 
       context: '.'
       dockerfile: Dockerfile
