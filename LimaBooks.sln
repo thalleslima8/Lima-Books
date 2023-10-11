@@ -16,10 +16,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Devops", "Devops", "{827EA68C-5825-41E3-994A-E5DC11EB7E1B}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
+		.github\workflows\docker-image.yml = .github\workflows\docker-image.yml
 		Dockerfile = Dockerfile
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimaBooks.Tests", "LimaBooks.Tests\LimaBooks.Tests.csproj", "{9C23BC59-D189-4C7D-9B38-DE99717B5693}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimaBooks.Tests", "LimaBooks.Tests\LimaBooks.Tests.csproj", "{9C23BC59-D189-4C7D-9B38-DE99717B5693}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
