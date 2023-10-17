@@ -58,8 +58,13 @@ EnsureDBCreated(app);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    Log.Logger.Information($"Starting in Development Environment....");
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+else
+{
+    Log.Logger.Information($"Starting in Production Environment....");
 }
 
 app.UseSwagger();
