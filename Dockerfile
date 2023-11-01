@@ -18,5 +18,5 @@ RUN dotnet publish "LimaBooks.Api.csproj" -c Release -o /app/publish /p:UseAppHo
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-#RUN dotnet dev-certs https --verbose
+RUN dotnet dev-certs https --verbose
 ENTRYPOINT ["dotnet", "LimaBooks.Api.dll"]
