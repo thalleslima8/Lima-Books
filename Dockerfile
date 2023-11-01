@@ -8,6 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["LimaBooks.Api/LimaBooks.Api.csproj", "LimaBooks.Api/"]
 RUN dotnet restore "LimaBooks.Api/LimaBooks.Api.csproj"
+RUN dotnet dev-certs https --verbose
 COPY . .
 WORKDIR "/src/LimaBooks.Api"
 RUN dotnet build "LimaBooks.Api.csproj" -c Release -o /app/build
@@ -18,5 +19,5 @@ RUN dotnet publish "LimaBooks.Api.csproj" -c Release -o /app/publish /p:UseAppHo
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-RUN dotnet dev-certs https --verbose
+COPY --from=build /root/.dotnet/corefx/cryptography/x509stores/my/* /root/.dotnet/corefx/cryptography/x509stores/my/
 ENTRYPOINT ["dotnet", "LimaBooks.Api.dll"]
