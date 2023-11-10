@@ -7,7 +7,6 @@
     <UserSecretsId>fb1d5908-8cfd-41ad-b923-fe8b3bcfe6b2</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
       <DockerfileFile>../Dockerfile</DockerfileFile>
-      <!--<DockerfileRunArguments>-p 5000:80 --network my-bridge</DockerfileRunArguments>-->
   </PropertyGroup>
 
   <ItemGroup>
