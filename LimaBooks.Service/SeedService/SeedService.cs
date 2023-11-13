@@ -3,6 +3,7 @@ using Bogus;
 using LimaBooks.Domain.Core;
 using LimaBooks.Service.BookService;
 using LimaBooks.Shared.Dtos;
+using LimaBooks.Shared.Enums;
 using Serilog;
 
 namespace LimaBooks.Service.SeedService
@@ -38,6 +39,7 @@ namespace LimaBooks.Service.SeedService
                     .RuleFor(b => b.PageCount, f => f.Random.Int(20, 700))
                     .RuleFor(b => b.Language, f => f.Address.Country())
                     .RuleFor(b => b.CoverImageURL, f => f.Image.LoremPixelUrl())
+                    .RuleFor(b => b.ReadingStatus, f => f.PickRandom<ReadingStatus>())
                     .Generate(15)
                     ;
 
